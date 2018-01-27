@@ -17,12 +17,14 @@ public class Player {
   private final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
   private final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
   private int xVelocity;
+  private int score;
 
   public Player(Bitmap playerImage){
     this.x = screenWidth / 2;
     this.y = screenHeight - playerImage.getHeight() - 200;
     this.playerImage = playerImage;
     this.xVelocity = 10;
+    this.score = 0;
   }
 
   public void update() {
@@ -32,6 +34,14 @@ public class Player {
         xVelocity *= -1;
       }
     }
+  }
+
+  public int getScore() {
+    return score;
+  }
+
+  public void incrementScore() {
+    score++;
   }
 
 

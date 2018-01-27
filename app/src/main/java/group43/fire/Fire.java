@@ -19,6 +19,7 @@ public class Fire  {
     this.y = playerY + 10;
   }
 
+
   public int getX() {
     return x;
   }

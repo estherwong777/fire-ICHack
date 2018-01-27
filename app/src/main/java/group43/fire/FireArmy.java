@@ -45,6 +45,10 @@ public class FireArmy {
   public boolean didhitDummy(DummyArmy dummyArmy) {
     List<Dummy> army = dummyArmy.getDummyArmy();
 
+    if (fireArmy == null) {
+      return false;
+    }
+
     for(Dummy d : army) {
       for(Fire f : fireArmy) {
         if (f.getX() == d.getX() && f.getY() == d.getY()) {

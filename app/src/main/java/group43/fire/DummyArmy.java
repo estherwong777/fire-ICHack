@@ -76,4 +76,9 @@ public class DummyArmy {
     return false;
   }
 
+  public void removeDummy(int index) {
+    army.remove(index);
+
+  }
+
 }

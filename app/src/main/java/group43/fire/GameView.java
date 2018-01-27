@@ -42,6 +42,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         player.update();
         fireArmy.update();
 
+        if (fireArmy.didhitDummy(dummyArmy)) {
+            //removes fire and dummy when hit
+            int removeDummyIndex = fireArmy.indexOfHitDummy(dummyArmy);
+            int removeFireIndex = fireArmy.indexOfHitFire(dummyArmy);
+
+            fireArmy.removeFire(removeFireIndex);
+            dummyArmy.removeDummy(removeDummyIndex);
+            player.incrementScore();
+        }
     }
 
 
