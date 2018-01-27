@@ -15,7 +15,7 @@ import android.view.SurfaceHolder;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
-    private Dummy dummy;
+    private DummyArmy dummyArmy;
 
     public GameView(Context context) {
         super(context);
@@ -35,14 +35,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-
+        dummyArmy.update();
+        dummyArmy.spawnDummy();
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         thread.setRunning(true);
         thread.start();
-        dummy = new Dummy(BitmapFactory.decodeResource(getResources(),R.drawable.redcircle));
+        dummyArmy = new DummyArmy(new Dummy(BitmapFactory.decodeResource(getResources(),R.drawable.redcircle)), getContext());
 
     }
 
@@ -53,8 +54,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawColor(Color.WHITE);
             Paint paint = new Paint();
             paint.setColor(Color.rgb(250, 0, 0));
-            canvas.drawRect(100, 100, 200, 200, paint);
-            dummy.draw(canvas);
+            dummyArmy.draw(canvas);
+            Paint paintScore = new Paint();
+            paintScore.setColor(Color.rgb(0,0,0));
+            paintScore.setTextSize(100);
+            canvas.drawText("score:", 450, 60, paintScore);
         }
     }
 
