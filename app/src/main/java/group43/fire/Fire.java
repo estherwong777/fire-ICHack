@@ -5,26 +5,25 @@ package group43.fire;
  */
 
 public class Fire  {
-  private Position position;
+  private int x;
+  private int y;
   private Player player;
 
-  public Fire() {
-    this.position = new Position(player.getPlayerX(), player.getPlayerY() - 1);
+  public Fire(int playerX, int playerY) {
+    this.x = playerX;
+    this.y = playerY + 10;
   }
 
-  public Fire(Position position){
-    this.position = position;
-  }
-  public void move() {
-    this.position = new Position(getFireX(), getFireY() - 1);
-
+  public int getX() {
+    return x;
   }
 
-  public int getFireX(){
-    return position.getX();
+  public int getY(){
+    return y;
   }
-  public int getFireY(){
-    return position.getY();
 
+  public void update() {
+    y--;
   }
+
 }

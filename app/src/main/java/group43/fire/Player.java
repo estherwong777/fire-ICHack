@@ -25,11 +25,6 @@ public class Player {
     this.xVelocity = 10;
   }
 
-//  public Player (int start){
-//    this.posit       = new Position(start, 0);
-//    this.playerImage = playerImage;
-//  }
-//
   public void update() {
     if (x < screenWidth) {
       x += xVelocity;
@@ -39,13 +34,6 @@ public class Player {
     }
   }
 
-//  public void moveRight(){
-//    this.posit = new Position(posit.getX()+1,0);
-//  }
-//
-//  public void moveLeft(){
-//    this.posit = new Position(posit.getX()-1,0);
-//  }
 
   public int getPlayerX(){
     return x;
