@@ -18,6 +18,10 @@ public class DummyArmy {
   private Context context;
   private final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
+  public List<Dummy> getDummyArmy() {
+    return army;
+  }
+
 
   public DummyArmy(Dummy firstDummy, Context context) {
     this.context = context;
