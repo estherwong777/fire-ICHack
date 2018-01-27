@@ -6,6 +6,7 @@ package group43.fire;
 
 public class Player {
 
+<<<<<<< HEAD
   private Position posit;
 
   public Player(){
@@ -37,3 +38,6 @@ public class Player {
   }
 
 }
+
+
+
