@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.view.View;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by jasmi on 27/01/2018.
@@ -83,7 +85,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
             player.draw(canvas);
 
-            if (fireArmy != null) {
+            if (!fireArmy.getFireArmy().isEmpty()) {
                 fireArmy.draw(canvas);
             }
 
@@ -96,7 +98,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             //When user touches screen
-            Log.d("touchevent", "touched");
+            fireArmy.addFire(player.getPlayerX(), player.getPlayerY(), BitmapFactory.decodeResource(getResources(),R.drawable.fire));
             return true;
         } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
             //When user stops touching screen - may not be needed

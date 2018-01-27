@@ -2,7 +2,9 @@ package group43.fire;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,11 +16,16 @@ public class FireArmy {
   private List<Fire> fireArmy;
 
   public FireArmy() {
-    this.fireArmy = null;
+    this.fireArmy = new ArrayList<>();
+  }
+
+  public List<Fire> getFireArmy() {
+    return fireArmy;
   }
 
   public void addFire(int playerX, int playerY, Bitmap bmp) {
     fireArmy.add(new Fire(playerX, playerY, bmp));
+    Log.d("fireadd", "added");
   }
 
   public void removeFire(int index) {
