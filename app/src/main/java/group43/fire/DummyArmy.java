@@ -39,7 +39,7 @@ public class DummyArmy {
 
   public void removeOutOfBoundDummies() {
     for(Dummy d : army) {
-      if (d.getX() > 2000 || d.getY() > 2000) {
+      if (d.getY() < 0 || d.getY() > 2000) {
         army.remove(d);
       }
     }
@@ -78,7 +78,6 @@ public class DummyArmy {
 
   public void removeDummy(int index) {
     army.remove(index);
-
   }
 
 }

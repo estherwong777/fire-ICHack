@@ -1,6 +1,7 @@
 package group43.fire;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -23,6 +24,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     private DummyArmy dummyArmy;
     private Player player;
     private FireArmy fireArmy;
+    private final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+
 
     public GameView(Context context) {
         super(context);
@@ -47,6 +50,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         dummyArmy.spawnDummy();
         player.update();
         fireArmy.update();
+        dummyArmy.removeOutOfBoundDummies();
+        fireArmy.removeOutOfBoundDummies();
 
         if (fireArmy.didhitDummy(dummyArmy)) {
             //removes fire and dummy when hit
@@ -81,7 +86,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
             Paint paintScore = new Paint();
             paintScore.setColor(Color.rgb(0,0,0));
             paintScore.setTextSize(100);
-            canvas.drawText("score:", 450, 60, paintScore);
+            canvas.drawText("score: " + player.getScore(), screenWidth / 2, 60, paintScore);
 
             player.draw(canvas);
 

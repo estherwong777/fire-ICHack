@@ -25,7 +25,6 @@ public class FireArmy {
 
   public void addFire(int playerX, int playerY, Bitmap bmp) {
     fireArmy.add(new Fire(playerX, playerY, bmp));
-    Log.d("fireadd", "added");
   }
 
   public void removeFire(int index) {
@@ -33,10 +32,18 @@ public class FireArmy {
 
   }
 
+  public void removeOutOfBoundDummies() {
+    for(Fire f : fireArmy) {
+      if (f.getY() < 0 || f.getY() > 2000) {
+        fireArmy.remove(f);
+      }
+    }
+  }
+
   public void update() {
     //moves all of the fires up the screen
     //does not check for collisions, that will probably be done in the mainActivity file
-    if (fireArmy != null) {
+    if (!fireArmy.isEmpty()) {
       for (Fire f : fireArmy) {
         f.update();
       }
@@ -52,13 +59,14 @@ public class FireArmy {
   public boolean didhitDummy(DummyArmy dummyArmy) {
     List<Dummy> army = dummyArmy.getDummyArmy();
 
-    if (fireArmy == null) {
+    if (fireArmy.isEmpty()) {
       return false;
     }
 
     for(Dummy d : army) {
       for(Fire f : fireArmy) {
-        if (f.getX() == d.getX() && f.getY() == d.getY()) {
+        if (isInRange(f.getX(), d.getX() - 150, d.getX() + 150) &&
+          isInRange(f.getY(), d.getY() - 10, d.getY() + 150)) {
           return true;
         }
       }
@@ -71,13 +79,16 @@ public class FireArmy {
 
     for (int i = 0; i < army.size(); i++) {
       for (int j = 0; j < fireArmy.size(); j++) {
-        if (army.get(i).getX() == fireArmy.get(j).getX() && army.get(i).getY() == fireArmy.get(j).getY()) {
+        if (isInRange(fireArmy.get(i).getX(), army.get(i).getX() - 150,
+          army.get(i).getX() + 150) && isInRange(fireArmy.get(i).getY(),
+          army.get(i).getY() - 10, army.get(i).getY() + 150)) {
           return i;
         }
-      }
-    }
-    return -1;
 
+        }
+      }
+
+    return -1;
   }
 
   public int indexOfHitFire(DummyArmy dummyArmy) {
@@ -85,13 +96,19 @@ public class FireArmy {
 
     for (int i = 0; i < army.size(); i++) {
       for (int j = 0; j < fireArmy.size(); j++) {
-        if (army.get(i).getX() == fireArmy.get(j).getX() && army.get(i).getY() == fireArmy.get(j).getY()) {
+        if (isInRange(fireArmy.get(i).getX(), army.get(i).getX() - 150,
+          army.get(i).getX() + 150) && isInRange(fireArmy.get(i).getY(),
+          army.get(i).getY() - 10, army.get(i).getY() + 150)) {
           return j;
         }
       }
     }
     return -1;
 
+  }
+
+  private boolean isInRange(int number, int lower, int higher) {
+    return (number <= higher && number >= lower);
   }
 
 }
