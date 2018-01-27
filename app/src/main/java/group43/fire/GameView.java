@@ -5,14 +5,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
+import android.view.View;
 
 /**
  * Created by jasmi on 27/01/2018.
  */
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
     private MainThread thread;
     private DummyArmy dummyArmy;
@@ -24,6 +27,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(), this);
         setFocusable(true);
+        setOnTouchListener(this);
     }
 
     @Override
@@ -86,6 +90,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            //When user touches screen
+            Log.d("touchevent", "touched");
+            return true;
+        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            //When user stops touching screen - may not be needed
+        }
+        return false;
     }
 
 }
