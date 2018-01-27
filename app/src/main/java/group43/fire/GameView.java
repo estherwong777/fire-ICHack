@@ -16,6 +16,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
     private DummyArmy dummyArmy;
+    private Player player;
 
     public GameView(Context context) {
         super(context);
@@ -37,6 +38,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
         dummyArmy.update();
         dummyArmy.spawnDummy();
+        player.update();
     }
 
     @Override
@@ -44,6 +46,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         thread.setRunning(true);
         thread.start();
         dummyArmy = new DummyArmy(new Dummy(BitmapFactory.decodeResource(getResources(),R.drawable.redcircle)), getContext());
+        player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.triangle));
 
     }
 
@@ -59,6 +62,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             paintScore.setColor(Color.rgb(0,0,0));
             paintScore.setTextSize(100);
             canvas.drawText("score:", 450, 60, paintScore);
+
+            player.draw(canvas);
         }
     }
 

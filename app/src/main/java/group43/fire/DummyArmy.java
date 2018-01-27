@@ -1,6 +1,7 @@
 package group43.fire;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
@@ -15,6 +16,8 @@ public class DummyArmy {
 
   private List<Dummy> army = new ArrayList<>();
   private Context context;
+  private final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+
 
   public DummyArmy(Dummy firstDummy, Context context) {
     this.context = context;
@@ -59,5 +62,14 @@ public class DummyArmy {
     }
     return true;
   }*/
+
+  public boolean isGameOver(Canvas canvas) {
+    for(Dummy d : army) {
+      if (d.getY() == screenHeight) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 }

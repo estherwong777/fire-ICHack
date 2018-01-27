@@ -10,7 +10,6 @@ import android.graphics.Canvas;
 public class Dummy {
 
     private final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    private final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private Bitmap image;
     private int x;
     private int y;

@@ -1,5 +1,6 @@
 package group43.fire;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
@@ -10,37 +11,48 @@ import android.graphics.Canvas;
 public class Player {
 
   //<<<<<<< HEAD
-  private Position posit;
+  private int x;
+  private int y;
   private Bitmap playerImage;
+  private final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+  private final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+  private int xVelocity;
 
   public Player(Bitmap playerImage){
-    this.posit       = new Position();
+    this.x = screenWidth / 2;
+    this.y = screenHeight - playerImage.getHeight() - 200;
     this.playerImage = playerImage;
+    this.xVelocity = 10;
   }
 
-  public Player (int start){
-    this.posit       = new Position(start, 0);
-    this.playerImage = playerImage;
+//  public Player (int start){
+//    this.posit       = new Position(start, 0);
+//    this.playerImage = playerImage;
+//  }
+//
+  public void update() {
+    if (x < screenWidth) {
+      x += xVelocity;
+      if (x > screenWidth - playerImage.getWidth() || (x < 0)) {
+        xVelocity *= -1;
+      }
+    }
   }
 
-  public void moveRight(){
-    this.posit = new Position(posit.getX()+1,0);
-  }
-
-  public void moveLeft(){
-    this.posit = new Position(posit.getX()-1,0);
-  }
-
-  public Position getPlayerPosition(){
-    return posit;
-  }
+//  public void moveRight(){
+//    this.posit = new Position(posit.getX()+1,0);
+//  }
+//
+//  public void moveLeft(){
+//    this.posit = new Position(posit.getX()-1,0);
+//  }
 
   public int getPlayerX(){
-    return posit.getX();
+    return x;
   }
 
   public int getPlayerY(){
-    return posit.getY();
+    return y;
   }
 
   public void draw(Canvas canvas) {
