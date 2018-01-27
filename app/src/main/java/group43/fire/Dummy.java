@@ -4,27 +4,18 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 /**
- * Created by majesticyak on 27/1/2018.
+ * Created by jasmi on 27/01/2018.
  */
 
-public class PlayerDummy {
+public class Dummy {
 
     private Bitmap image;
-    private int x;
-    private int y;
 
-    public PlayerDummy(Bitmap bmp) {
+    public Dummy(Bitmap bmp) {
         image = bmp;
-        x = 100;
-        y = 100;
     }
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(image, 100, 100, null);
     }
-
-    public void update() {
-        y++;
-    }
-
 }

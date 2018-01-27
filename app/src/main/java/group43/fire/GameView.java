@@ -5,18 +5,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.view.Surface;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
 /**
- * Created by majesticyak on 27/1/2018.
+ * Created by jasmi on 27/01/2018.
  */
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
-    private PlayerDummy playerDummy;
+    private Dummy dummy;
 
     public GameView(Context context) {
         super(context);
@@ -31,41 +30,32 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        playerDummy = new PlayerDummy(BitmapFactory.decodeResource(getResources(), R.drawable.redcircle));
-        thread.setRunning(true);
-        thread.start();
-    }
-
-    @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        boolean retry = true;
-        while (retry) {
-            try {
-                thread.setRunning(false);
-                thread.join();
-            } catch(InterruptedException e) {
-                e.printStackTrace();
-            }
-            retry = false;
-        }
+
     }
 
     public void update() {
-        playerDummy.update();
+
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        thread.setRunning(true);
+        thread.start();
+        dummy = new Dummy(BitmapFactory.decodeResource(getResources(),R.drawable.redcircle));
+
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-            playerDummy.draw(canvas);
+        if (canvas != null) {
             canvas.drawColor(Color.WHITE);
             Paint paint = new Paint();
             paint.setColor(Color.rgb(250, 0, 0));
             canvas.drawRect(100, 100, 200, 200, paint);
-
-
-
-
+            dummy.draw(canvas);
+        }
     }
+
 }
