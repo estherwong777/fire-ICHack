@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Fire.iml" filepath="$PROJECT_DIR$/Fire.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fireichack.iml" filepath="$PROJECT_DIR$/fireichack.iml" />
     </modules>
   </component>
 </project>

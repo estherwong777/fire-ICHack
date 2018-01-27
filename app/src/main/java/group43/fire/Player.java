@@ -5,4 +5,6 @@ package group43.fire;
  */
 
 public class Player {
+
+
 }
