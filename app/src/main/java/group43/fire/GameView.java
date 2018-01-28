@@ -6,6 +6,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
@@ -33,6 +36,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         thread = new MainThread(getHolder(), this);
         setFocusable(true);
         setOnTouchListener(this);
+        startThread();
     }
 
     @Override
@@ -71,7 +75,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         }
 
     }
-/////
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -119,10 +122,65 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
             fireArmy.addFire(player.getPlayerX(), player.getPlayerY(), BitmapFactory.decodeResource(getResources(),R.drawable.fire));
             soundPlayer.playHitSound();
             return true;
-        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-            //When user stops touching screen - may not be needed
         }
         return false;
+    }
+    //=======================
+    //SOUND PART ============
+    //=======================
+
+    private AudioRecord audio        = null;
+    private int SAMPLE_RATE          = 8000;
+    private int CHANNEL_CONFIG       = AudioFormat.CHANNEL_IN_DEFAULT;
+    private int AUDIO_FORMAT         = AudioFormat.ENCODING_PCM_16BIT;
+    private int BUFFER_SIZE_BYTES    = AudioRecord.getMinBufferSize(SAMPLE_RATE,
+      CHANNEL_CONFIG, AUDIO_FORMAT);
+    private short[] audioBuffer;
+    private int thresholdAmplitude   = 40;
+    private boolean getVolRunning;
+
+    private void startAudioRecording() {
+        audio = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE, CHANNEL_CONFIG,
+          AUDIO_FORMAT, BUFFER_SIZE_BYTES);
+        getVolRunning = true;
+        audio.startRecording();
+    }
+
+    private void stopAudioRecording() {
+        audio.stop();
+        audio.release();
+        audio = null;
+        getVolRunning = false;
+    }
+
+    private void startThread() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                startAudioRecording();
+                audioBuffer = new short[BUFFER_SIZE_BYTES];
+                while (getVolRunning) {
+                    Float amplitude = getAmplitude();
+                    if (amplitude > thresholdAmplitude) {
+                        fireArmy.addFire(player.getPlayerX(), player.getPlayerY(),
+                          BitmapFactory.decodeResource(getResources(), R.drawable.fire));
+                    }
+                }
+                stopAudioRecording();
+            }
+        }).start();
+    }
+
+    public float getAmplitude() {
+        final int numBytesRead = Math.abs(audio.read(audioBuffer, 0, BUFFER_SIZE_BYTES));
+        if (numBytesRead <= 0) {
+            return 0;
+        }
+        long sumVol = 0;
+        for (int i = 0; i < BUFFER_SIZE_BYTES; i++) {
+            sumVol += audioBuffer[i];
+        }
+        return ((float) (Math.abs(sumVol / ((numBytesRead)))));
     }
 
 }
