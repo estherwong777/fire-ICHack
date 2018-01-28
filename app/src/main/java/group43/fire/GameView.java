@@ -14,7 +14,7 @@ import android.view.View;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
+/**s
  * Created by jasmi on 27/01/2018.
  */
 
@@ -46,7 +46,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     }
 
     public void update() {
-
         dummyArmy.update();
         dummyArmy.spawnDummy();
         player.update();
@@ -55,6 +54,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         fireArmy.removeOutOfBoundDummies();
         if (fireArmy.removeHits(dummyArmy)) {
             player.incrementScore();
+        }
+
+        if (dummyArmy.isGameOver()) {
+            player.resetScore();
         }
     }
 
@@ -87,8 +90,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
             if (!fireArmy.getFireArmy().isEmpty()) {
                 fireArmy.draw(canvas);
             }
-
-
 
         }
     }

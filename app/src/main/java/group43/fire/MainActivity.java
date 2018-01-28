@@ -7,9 +7,6 @@ import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,5 +14,6 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(new GameView(this));
+
     }
 }

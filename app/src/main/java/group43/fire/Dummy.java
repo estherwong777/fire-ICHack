@@ -13,6 +13,7 @@ public class Dummy {
     private Bitmap image;
     private int x;
     private int y;
+    private int yVelocity = 5;
 
     public Dummy(Bitmap bmp) {
         this.image = bmp;
@@ -25,7 +26,7 @@ public class Dummy {
     }
 
     public void update() {
-        y = y + 3;
+        y += yVelocity;
     }
 
     public int getX() {

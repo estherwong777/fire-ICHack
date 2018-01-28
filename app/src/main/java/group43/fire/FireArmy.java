@@ -2,8 +2,6 @@ package group43.fire;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,23 +54,6 @@ public class FireArmy {
     }
   }
 
-//  public boolean didhitDummy(DummyArmy dummyArmy) {
-//    List<Dummy> army = dummyArmy.getDummyArmy();
-//
-//    if (fireArmy.isEmpty()) {
-//      return false;
-//    }
-//
-//    for(Dummy d : army) {
-//      for(Fire f : fireArmy) {
-//        if (isInRange(f.getX(), d.getX() - 100, d.getX() + 100) &&
-//          isInRange(f.getY(), d.getY(), d.getY() + 50)) {
-//          return true;
-//        }
-//      }
-//    }
-//    return false;
-//  }
 
   public boolean removeHits(DummyArmy dummyArmy) {
     List<Dummy> army = dummyArmy.getDummyArmy();
@@ -90,22 +71,6 @@ public class FireArmy {
       }
       return false;
   }
-
-//  public int indexOfHitFire(DummyArmy dummyArmy) {
-//    List<Dummy> army = dummyArmy.getDummyArmy();
-//
-//    for (int i = 0; i < army.size(); i++) {
-//      for (int j = 0; j < fireArmy.size(); j++) {
-//        if (isInRange(fireArmy.get(j).getX(), army.get(i).getX() - 100,
-//          army.get(i).getX() + 100) && isInRange(fireArmy.get(j).getY(),
-//          army.get(i).getY(), army.get(i).getY() + 50)) {
-//          return j;
-//        }
-//      }
-//    }
-//    return -1;
-//
-//  }
 
   private boolean isInRange(int number, int lower, int higher) {
     return (number <= higher && number >= lower);

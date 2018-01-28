@@ -67,9 +67,9 @@ public class DummyArmy {
     return true;
   }*/
 
-  public boolean isGameOver(Canvas canvas) {
+  public boolean isGameOver() {
     for(Dummy d : army) {
-      if (d.getY() == screenHeight) {
+      if (d.getY() > screenHeight) {
         return true;
       }
     }
