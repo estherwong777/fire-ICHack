@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public class FireArmy {
+  //a list of Fires, allowing them to spawn and be removed from the game scene
 
   private List<Fire> fireArmy;
 
@@ -58,9 +59,9 @@ public class FireArmy {
 
     for (int i = 0; i < army.size(); i++) {
       for (int j = 0; j < fireArmy.size(); j++) {
-        if (isInRange(fireArmy.get(j).getX(), army.get(i).getX() - 50,
-          army.get(i).getX() + 50) && isInRange(fireArmy.get(j).getY(),
-          army.get(i).getY(), army.get(i).getY() + 25)) {
+        if (isInRange(fireArmy.get(j).getX(), army.get(i).getX() - 70,
+          army.get(i).getX() + 70) && isInRange(fireArmy.get(j).getY(),
+          army.get(i).getY(), army.get(i).getY() + 35)) {
           fireArmy.remove(j);
           dummyArmy.getDummyArmy().remove(i);
           return true;

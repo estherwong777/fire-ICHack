@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
@@ -72,48 +73,46 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         }
 
     }
-
+/////
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         thread.setRunning(true);
         thread.start();
-        dummyArmy = new DummyArmy(new Dummy(BitmapFactory.decodeResource(getResources(),R.drawable.redcircle)), getContext());
+        dummyArmy = new DummyArmy(new Dummy(BitmapFactory.decodeResource(getResources(),R.drawable.bluecircle)), getContext());
         player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.triangle));
         fireArmy = new FireArmy();
         soundPlayer = new SoundPlayer(getContext());
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(final Canvas canvas) {
         super.draw(canvas);
         if (canvas != null) {
-            canvas.drawColor(Color.BLACK);
-            Paint paint = new Paint();
-            paint.setColor(Color.rgb(250, 0, 0));
-            dummyArmy.draw(canvas);
-            Paint paintScore = new Paint();
-            paintScore.setColor(Color.rgb(255,255,255));
-            paintScore.setTextSize(90);
-            Paint highScorePaint = new Paint();
-            highScorePaint.setColor(Color.rgb(150,150,150));
-            highScorePaint.setTextSize(50);
-            canvas.drawText("score: " + dummyArmy.getScore(), screenWidth - 400, 80, paintScore);
-            canvas.drawText("Level " + dummyArmy.getLevel(), 200, 80, paintScore);
-            canvas.drawText("Highscore " + highScore, 200, 130, highScorePaint);
+                canvas.drawColor(Color.BLACK);
+                Paint paint = new Paint();
+                paint.setColor(Color.rgb(250, 0, 0));
+                dummyArmy.draw(canvas);
+                Paint paintScore = new Paint();
+                paintScore.setColor(Color.rgb(255, 255, 255));
+                paintScore.setTextSize(90);
+                Paint highScorePaint = new Paint();
+                highScorePaint.setColor(Color.rgb(150, 150, 150));
+                highScorePaint.setTextSize(50);
+                canvas.drawText("Score: " + dummyArmy.getScore(), screenWidth - 400, 80, paintScore);
+                canvas.drawText("Level " + dummyArmy.getLevel(), 200, 80, paintScore);
+                canvas.drawText("Highscore " + highScore, 200, 130, highScorePaint);
 
 
+                player.draw(canvas);
 
-            player.draw(canvas);
+                if (!fireArmy.getFireArmy().isEmpty()) {
+                    fireArmy.draw(canvas);
+                }
 
-            if (!fireArmy.getFireArmy().isEmpty()) {
-                fireArmy.draw(canvas);
             }
-
-
-
         }
-    }
+
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {

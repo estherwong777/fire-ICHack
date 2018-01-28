@@ -36,7 +36,7 @@ public class DummyArmy {
 
   public void spawnDummy() {
     int random = (int) (Math.random() * 1500);
-    Dummy newDummy = new Dummy(BitmapFactory.decodeResource(context.getResources(),R.drawable.redcircle));
+    Dummy newDummy = new Dummy(BitmapFactory.decodeResource(context.getResources(),R.drawable.bluecircle));
 
     if (random < probability) {
       army.add(newDummy);

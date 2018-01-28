@@ -8,12 +8,13 @@ import android.graphics.Canvas;
  */
 
 public class Dummy {
+  //dummies are the bad guys, the player aims to fire at them
 
     private final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private Bitmap image;
     private int x;
     private int y;
-    private int yVelocity = 5;
+    private int yVelocity = 6;
 
     public Dummy(Bitmap bmp) {
         this.image = bmp;
