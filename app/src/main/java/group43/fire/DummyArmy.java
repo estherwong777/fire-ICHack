@@ -18,7 +18,7 @@ public class DummyArmy {
   private Context context;
   private final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
   private int count = 0;
-  private int score = 0;
+  public int score = 0;
   private int level = 0;
   private int frequency = 250;
   private int probability = 5;
@@ -79,25 +79,14 @@ public class DummyArmy {
     frequency = 250;
   }
 
-  /*public boolean isHit() {
-    for(Dummy d : army) {
-      if (d.getY() == )
-
-    }
-    return true;
-  }*/
 
   public boolean isGameOver() {
     for(Dummy d : army) {
-      if (d.getY() >= screenHeight) {
+      if (d.getY() >= screenHeight - 15) {
         return true;
       }
     }
     return false;
-  }
-
-  public void removeDummy(int index) {
-    army.remove(index);
   }
 
   public int getScore() {
@@ -117,8 +106,8 @@ public class DummyArmy {
     this.level = 0;
   }
 
-  public void incrementScore() {
-    score++;
+  public void incrementScore(int i) {
+    score += i;
     if (score % 10 == 0) {
       level++;
       frequency += (20 * level);

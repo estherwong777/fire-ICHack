@@ -27,10 +27,6 @@ public class FireArmy {
     }
   }
 
-  public void removeFire(int index) {
-    fireArmy.remove(index);
-
-  }
 
   public void removeOutOfBoundDummies() {
     for(Fire f : fireArmy) {
@@ -73,6 +69,7 @@ public class FireArmy {
       }
       return false;
   }
+
 
   private boolean isInRange(int number, int lower, int higher) {
     return (number <= higher && number >= lower);

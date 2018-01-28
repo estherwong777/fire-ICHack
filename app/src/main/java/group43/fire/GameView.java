@@ -1,19 +1,16 @@
 package group43.fire;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.view.View;
-import java.util.List;
-import java.util.ArrayList;
 
 /**s
  * Created by jasmi on 27/01/2018.
@@ -26,7 +23,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     private Player player;
     private FireArmy fireArmy;
     private final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    private int highScore = 0;
+    public int highScore = 0;
+    private SoundPlayer soundPlayer;
+
 
 
     public GameView(Context context) {
@@ -53,18 +52,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         fireArmy.update();
         dummyArmy.removeOutOfBoundDummies();
         fireArmy.removeOutOfBoundDummies();
+
         if (fireArmy.removeHits(dummyArmy)) {
-            dummyArmy.incrementScore();
+            dummyArmy.incrementScore(1);
+            soundPlayer.playOverSound();
         }
 
         if (dummyArmy.isGameOver()) {
+            soundPlayer.playGameOverSound();
             if (dummyArmy.getScore() > highScore) {
                 highScore = dummyArmy.getScore();
             }
+
             dummyArmy.resetScore();
             dummyArmy.resetProbability();
             dummyArmy.resetFrequency();
             dummyArmy.resetLevel();
+
         }
 
     }
@@ -77,7 +81,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         dummyArmy = new DummyArmy(new Dummy(BitmapFactory.decodeResource(getResources(),R.drawable.redcircle)), getContext());
         player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.triangle));
         fireArmy = new FireArmy();
-
+        soundPlayer = new SoundPlayer(getContext());
     }
 
     @Override
@@ -96,7 +100,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
             highScorePaint.setTextSize(50);
             canvas.drawText("score: " + dummyArmy.getScore(), screenWidth - 400, 80, paintScore);
             canvas.drawText("Level " + dummyArmy.getLevel(), 200, 80, paintScore);
-            canvas.drawText("Highscore " + highScore, 200, 120, highScorePaint);
+            canvas.drawText("Highscore " + highScore, 200, 130, highScorePaint);
+
 
 
             player.draw(canvas);
@@ -104,6 +109,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
             if (!fireArmy.getFireArmy().isEmpty()) {
                 fireArmy.draw(canvas);
             }
+
+
 
         }
     }
@@ -113,6 +120,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             //When user touches screen
             fireArmy.addFire(player.getPlayerX(), player.getPlayerY(), BitmapFactory.decodeResource(getResources(),R.drawable.fire));
+            soundPlayer.playHitSound();
             return true;
         } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
             //When user stops touching screen - may not be needed
