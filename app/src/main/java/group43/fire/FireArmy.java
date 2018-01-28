@@ -55,7 +55,7 @@ public class FireArmy {
 
 
   public boolean removeHits(DummyArmy dummyArmy) {
-    List<Dummy> army = dummyArmy.getDummyArmy();
+     List<Dummy> army = dummyArmy.getDummyArmy();
 
     for (int i = 0; i < army.size(); i++) {
       for (int j = 0; j < fireArmy.size(); j++) {

@@ -13,7 +13,7 @@ public class SoundPlayer {
   private static SoundPool soundPool;
   private static int hitSound; //fire sound
   private static int overSound; // when one gets hit
-  private static int gameOver;
+  private static int gameOver; //sound when player dies
 
   public SoundPlayer(Context context) {
     soundPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
