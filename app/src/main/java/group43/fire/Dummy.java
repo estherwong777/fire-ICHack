@@ -16,7 +16,7 @@ public class Dummy {
 
     public Dummy(Bitmap bmp) {
         this.image = bmp;
-        this.x = (int) (Math.random() * screenWidth);
+        this.x = (int) (Math.random() * (screenWidth - 2 * image.getWidth()) + image.getWidth());
         this.y = 1;
     }
 

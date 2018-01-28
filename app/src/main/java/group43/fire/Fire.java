@@ -29,7 +29,7 @@ public class Fire  {
   }
 
   public void update() {
-    y = y - 3;
+    y = y - 5;
   }
 
   public void draw(Canvas canvas) {

@@ -56,56 +56,56 @@ public class FireArmy {
     }
   }
 
-  public boolean didhitDummy(DummyArmy dummyArmy) {
+//  public boolean didhitDummy(DummyArmy dummyArmy) {
+//    List<Dummy> army = dummyArmy.getDummyArmy();
+//
+//    if (fireArmy.isEmpty()) {
+//      return false;
+//    }
+//
+//    for(Dummy d : army) {
+//      for(Fire f : fireArmy) {
+//        if (isInRange(f.getX(), d.getX() - 100, d.getX() + 100) &&
+//          isInRange(f.getY(), d.getY(), d.getY() + 50)) {
+//          return true;
+//        }
+//      }
+//    }
+//    return false;
+//  }
+
+  public boolean removeHits(DummyArmy dummyArmy) {
     List<Dummy> army = dummyArmy.getDummyArmy();
 
-    if (fireArmy.isEmpty()) {
-      return false;
-    }
-
-    for(Dummy d : army) {
-      for(Fire f : fireArmy) {
-        if (isInRange(f.getX(), d.getX() - 150, d.getX() + 150) &&
-          isInRange(f.getY(), d.getY() - 10, d.getY() + 150)) {
+    for (int i = 0; i < army.size(); i++) {
+      for (int j = 0; j < fireArmy.size(); j++) {
+        if (isInRange(fireArmy.get(j).getX(), army.get(i).getX() - 100,
+          army.get(i).getX() + 100) && isInRange(fireArmy.get(j).getY(),
+          army.get(i).getY(), army.get(i).getY() + 50)) {
+          fireArmy.remove(j);
+          dummyArmy.getDummyArmy().remove(i);
           return true;
         }
-      }
-    }
-    return false;
-  }
-
-  public int indexOfHitDummy(DummyArmy dummyArmy) {
-    List<Dummy> army = dummyArmy.getDummyArmy();
-
-    for (int i = 0; i < army.size(); i++) {
-      for (int j = 0; j < fireArmy.size(); j++) {
-        if (isInRange(fireArmy.get(i).getX(), army.get(i).getX() - 150,
-          army.get(i).getX() + 150) && isInRange(fireArmy.get(i).getY(),
-          army.get(i).getY() - 10, army.get(i).getY() + 150)) {
-          return i;
-        }
-
         }
       }
-
-    return -1;
+      return false;
   }
 
-  public int indexOfHitFire(DummyArmy dummyArmy) {
-    List<Dummy> army = dummyArmy.getDummyArmy();
-
-    for (int i = 0; i < army.size(); i++) {
-      for (int j = 0; j < fireArmy.size(); j++) {
-        if (isInRange(fireArmy.get(i).getX(), army.get(i).getX() - 150,
-          army.get(i).getX() + 150) && isInRange(fireArmy.get(i).getY(),
-          army.get(i).getY() - 10, army.get(i).getY() + 150)) {
-          return j;
-        }
-      }
-    }
-    return -1;
-
-  }
+//  public int indexOfHitFire(DummyArmy dummyArmy) {
+//    List<Dummy> army = dummyArmy.getDummyArmy();
+//
+//    for (int i = 0; i < army.size(); i++) {
+//      for (int j = 0; j < fireArmy.size(); j++) {
+//        if (isInRange(fireArmy.get(j).getX(), army.get(i).getX() - 100,
+//          army.get(i).getX() + 100) && isInRange(fireArmy.get(j).getY(),
+//          army.get(i).getY(), army.get(i).getY() + 50)) {
+//          return j;
+//        }
+//      }
+//    }
+//    return -1;
+//
+//  }
 
   private boolean isInRange(int number, int lower, int higher) {
     return (number <= higher && number >= lower);

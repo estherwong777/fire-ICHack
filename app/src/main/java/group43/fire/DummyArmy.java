@@ -29,10 +29,10 @@ public class DummyArmy {
   }
 
   public void spawnDummy() {
-    int random = (int) (Math.random() * 1000);
+    int random = (int) (Math.random() * 800);
     Dummy newDummy = new Dummy(BitmapFactory.decodeResource(context.getResources(),R.drawable.redcircle));
 
-    if (random < 2) {
+    if (random < 405 && random > 400) {
       army.add(newDummy);
     }
   }

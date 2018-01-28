@@ -46,20 +46,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     }
 
     public void update() {
+
         dummyArmy.update();
         dummyArmy.spawnDummy();
         player.update();
         fireArmy.update();
         dummyArmy.removeOutOfBoundDummies();
         fireArmy.removeOutOfBoundDummies();
-
-        if (fireArmy.didhitDummy(dummyArmy)) {
-            //removes fire and dummy when hit
-            int removeDummyIndex = fireArmy.indexOfHitDummy(dummyArmy);
-            int removeFireIndex = fireArmy.indexOfHitFire(dummyArmy);
-
-            fireArmy.removeFire(removeFireIndex);
-            dummyArmy.removeDummy(removeDummyIndex);
+        if (fireArmy.removeHits(dummyArmy)) {
             player.incrementScore();
         }
     }
