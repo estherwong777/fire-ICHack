@@ -12,7 +12,7 @@ public class Fire  {
   private int y;
   private Player player;
   private Bitmap bmp;
-  private int yVelocity = 7;
+  private int yVelocity = 20;
 
   public Fire(int playerX, int playerY, Bitmap bmp) {
     this.bmp = bmp;

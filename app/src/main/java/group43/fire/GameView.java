@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -25,6 +26,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     private Player player;
     private FireArmy fireArmy;
     private final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int highScore = 0;
 
 
     public GameView(Context context) {
@@ -47,18 +49,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
     public void update() {
         dummyArmy.update();
-        dummyArmy.spawnDummy();
         player.update();
         fireArmy.update();
         dummyArmy.removeOutOfBoundDummies();
         fireArmy.removeOutOfBoundDummies();
         if (fireArmy.removeHits(dummyArmy)) {
-            player.incrementScore();
+            dummyArmy.incrementScore();
         }
 
         if (dummyArmy.isGameOver()) {
-            player.resetScore();
+            if (dummyArmy.getScore() > highScore) {
+                highScore = dummyArmy.getScore();
+            }
+            dummyArmy.resetScore();
+            dummyArmy.resetProbability();
+            dummyArmy.resetFrequency();
+            dummyArmy.resetLevel();
         }
+
     }
 
 
@@ -76,14 +84,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     public void draw(Canvas canvas) {
         super.draw(canvas);
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE);
+            canvas.drawColor(Color.BLACK);
             Paint paint = new Paint();
             paint.setColor(Color.rgb(250, 0, 0));
             dummyArmy.draw(canvas);
             Paint paintScore = new Paint();
-            paintScore.setColor(Color.rgb(0,0,0));
-            paintScore.setTextSize(100);
-            canvas.drawText("score: " + player.getScore(), screenWidth / 2, 60, paintScore);
+            paintScore.setColor(Color.rgb(255,255,255));
+            paintScore.setTextSize(90);
+            Paint highScorePaint = new Paint();
+            highScorePaint.setColor(Color.rgb(150,150,150));
+            highScorePaint.setTextSize(50);
+            canvas.drawText("score: " + dummyArmy.getScore(), screenWidth - 400, 80, paintScore);
+            canvas.drawText("Level " + dummyArmy.getLevel(), 200, 80, paintScore);
+            canvas.drawText("Highscore " + highScore, 200, 120, highScorePaint);
+
 
             player.draw(canvas);
 

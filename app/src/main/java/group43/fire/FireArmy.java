@@ -22,7 +22,9 @@ public class FireArmy {
   }
 
   public void addFire(int playerX, int playerY, Bitmap bmp) {
-    fireArmy.add(new Fire(playerX, playerY, bmp));
+    if (fireArmy.size() < 5) {
+      fireArmy.add(new Fire(playerX, playerY, bmp));
+    }
   }
 
   public void removeFire(int index) {
@@ -60,9 +62,9 @@ public class FireArmy {
 
     for (int i = 0; i < army.size(); i++) {
       for (int j = 0; j < fireArmy.size(); j++) {
-        if (isInRange(fireArmy.get(j).getX(), army.get(i).getX() - 100,
-          army.get(i).getX() + 100) && isInRange(fireArmy.get(j).getY(),
-          army.get(i).getY(), army.get(i).getY() + 50)) {
+        if (isInRange(fireArmy.get(j).getX(), army.get(i).getX() - 50,
+          army.get(i).getX() + 50) && isInRange(fireArmy.get(j).getY(),
+          army.get(i).getY(), army.get(i).getY() + 25)) {
           fireArmy.remove(j);
           dummyArmy.getDummyArmy().remove(i);
           return true;
